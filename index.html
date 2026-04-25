@@ -3,68 +3,425 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khảo Sát Nhu Cầu AI</title>
+<title>Khảo Sát Nhu Cầu AI · dz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px}
-  .container{max-width:680px;margin:0 auto}
-  .header{text-align:center;color:#fff;padding:30px 0 20px}
-  .header h1{font-size:26px;font-weight:700;margin-bottom:8px}
-  .header p{font-size:14px;opacity:0.85}
-  .progress-bar{background:rgba(255,255,255,0.3);border-radius:10px;height:6px;margin:0 0 20px}
-  .progress-fill{background:#fff;border-radius:10px;height:6px;transition:width 0.4s ease}
-  .progress-text{color:#fff;font-size:12px;text-align:right;margin-bottom:6px;opacity:0.85}
-  .card{background:#fff;border-radius:20px;padding:28px;margin-bottom:16px;box-shadow:0 10px 40px rgba(0,0,0,0.12)}
-  .step{display:none}.step.active{display:block}
-  .step-title{font-size:18px;font-weight:700;color:#2d2d2d;margin-bottom:6px}
-  .step-desc{font-size:13px;color:#888;margin-bottom:20px}
-  label{display:block;font-size:14px;font-weight:600;color:#444;margin-bottom:6px}
-  input[type=text],input[type=email],select,textarea{width:100%;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:14px;color:#333;transition:border 0.2s;background:#fafafa;outline:none}
-  input:focus,select:focus,textarea:focus{border-color:#764ba2;background:#fff}
-  textarea{resize:vertical;min-height:80px}
-  .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-  .option{border:1.5px solid #e0e0e0;border-radius:12px;padding:12px 14px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.2s;font-size:13px;color:#555;background:#fafafa}
-  .option:hover{border-color:#764ba2;background:#f5f0ff}
-  .option.selected{border-color:#764ba2;background:linear-gradient(135deg,#f0ebff,#e8e0ff);color:#5a3fa0;font-weight:600}
-  .option .icon{font-size:20px;flex-shrink:0}
-  .option-label{line-height:1.3}
-  .btn-row{display:flex;gap:12px;margin-top:10px}
-  .btn{padding:12px 24px;border-radius:12px;border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;flex:1}
-  .btn-back{background:#f0f0f0;color:#555}.btn-back:hover{background:#e0e0e0}
-  .btn-next{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 4px 14px rgba(118,75,162,0.35)}.btn-next:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(118,75,162,0.4)}
-  .btn-next:disabled{opacity:0.5;cursor:not-allowed;transform:none}
-  .success-screen{text-align:center;padding:20px 0}
-  .success-icon{font-size:60px;margin-bottom:16px}
-  .success-screen h2{font-size:22px;font-weight:700;color:#2d2d2d;margin-bottom:8px}
-  .success-screen p{font-size:14px;color:#888;margin-bottom:20px}
-  .tag{display:inline-block;background:#f0ebff;color:#764ba2;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;margin:2px}
-  .rating-row{display:flex;gap:8px;margin-bottom:16px}
-  .rating-btn{flex:1;padding:10px;border:1.5px solid #e0e0e0;border-radius:10px;background:#fafafa;cursor:pointer;font-size:13px;font-weight:600;color:#777;transition:all 0.2s;text-align:center}
-  .rating-btn:hover{border-color:#764ba2}
-  .rating-btn.selected{border-color:#764ba2;background:linear-gradient(135deg,#f0ebff,#e8e0ff);color:#5a3fa0}
-  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-  .field-group{margin-bottom:14px}
-  .status-msg{font-size:12px;padding:8px 12px;border-radius:8px;margin-top:10px;display:none}
-  .status-msg.success{background:#eafaf1;color:#27ae60;display:block}
-  .status-msg.error{background:#fdecea;color:#e74c3c;display:block}
-  @media(max-width:500px){.options-grid{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}}
+  :root {
+    --ocean:   #001233;
+    --ocean2:  #001E4D;
+    --flow:    #006FA0;
+    --spark:   #00D4FF;
+    --forest:  #0F2D1E;
+    --lamp:    #E8A21A;
+    --ember:   #C85A00;
+    --candle:  #FFFDF5;
+    --white:   #FFFFFF;
+    --mist:    #8892A4;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--ocean);
+    min-height: 100vh;
+    padding: 24px 16px 40px;
+  }
+
+  /* ── Background subtle circuit texture ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--flow) 1px, transparent 1px),
+      linear-gradient(90deg, var(--flow) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+
+  /* ── Header ── */
+  .header { text-align: center; padding: 8px 0 24px; }
+
+  .logo-wrap {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .logo-wrap img {
+    height: 64px;
+    width: auto;
+    display: block;
+  }
+
+  .header-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .header-title span { color: var(--lamp); }
+
+  .header-sub {
+    font-size: 13px;
+    color: var(--mist);
+    line-height: 1.6;
+  }
+
+  .tagline {
+    display: inline-block;
+    margin-top: 10px;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lamp);
+    opacity: 0.7;
+  }
+
+  /* ── Progress ── */
+  .progress-wrap { margin-bottom: 20px; }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .progress-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+  .progress-step {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--lamp);
+  }
+  .progress-bar {
+    background: rgba(255,255,255,0.08);
+    border-radius: 99px;
+    height: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    background: linear-gradient(90deg, var(--lamp), var(--ember));
+    border-radius: 99px;
+    height: 4px;
+    transition: width 0.4s ease;
+    box-shadow: 0 0 8px rgba(232,162,26,0.5);
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--ocean2);
+    border: 1px solid rgba(0,111,160,0.3);
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.04);
+  }
+
+  .step { display: none; }
+  .step.active { display: block; }
+
+  /* ── Step header ── */
+  .step-header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(0,111,160,0.25); }
+  .step-eyebrow {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--lamp);
+    margin-bottom: 4px;
+  }
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .step-desc { font-size: 13px; color: var(--mist); line-height: 1.6; }
+
+  /* ── Form elements ── */
+  .field-group { margin-bottom: 18px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+
+  label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 8px;
+  }
+
+  input[type=text], input[type=email], select, textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid rgba(0,111,160,0.4);
+    border-radius: 10px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--white);
+    background: rgba(0,18,51,0.6);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+  input[type=text]::placeholder, input[type=email]::placeholder, textarea::placeholder {
+    color: var(--mist);
+    opacity: 0.6;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--lamp);
+    box-shadow: 0 0 0 3px rgba(232,162,26,0.15);
+  }
+  select option { background: var(--ocean); color: var(--white); }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+  /* ── Options grid ── */
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; }
+
+  .option {
+    border: 1.5px solid rgba(0,111,160,0.35);
+    border-radius: 12px;
+    padding: 11px 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.18s;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--mist);
+    background: rgba(0,18,51,0.4);
+    user-select: none;
+  }
+  .option:hover {
+    border-color: var(--lamp);
+    background: rgba(232,162,26,0.08);
+    color: var(--candle);
+  }
+  .option.selected {
+    border-color: var(--lamp);
+    background: rgba(232,162,26,0.12);
+    color: var(--lamp);
+    font-weight: 600;
+    box-shadow: 0 0 0 1px rgba(232,162,26,0.3), inset 0 0 12px rgba(232,162,26,0.06);
+  }
+  .option .icon { font-size: 18px; flex-shrink: 0; }
+  .option-label { line-height: 1.35; }
+
+  /* "Khác" option spans full width */
+  .option-other { grid-column: 1 / -1; }
+  .option-other-input {
+    display: none;
+    margin-top: 8px;
+    width: 100%;
+    padding: 9px 13px;
+    border: 1.5px solid var(--lamp);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--white);
+    background: rgba(232,162,26,0.06);
+    outline: none;
+    transition: box-shadow 0.2s;
+  }
+  .option-other-input::placeholder { color: var(--mist); opacity: 0.7; }
+  .option-other-input:focus { box-shadow: 0 0 0 3px rgba(232,162,26,0.2); }
+  .option-other-input.show { display: block; }
+
+  /* ── Rating ── */
+  .rating-row { display: flex; gap: 8px; margin-bottom: 18px; }
+  .rating-btn {
+    flex: 1;
+    padding: 10px 6px;
+    border: 1.5px solid rgba(0,111,160,0.35);
+    border-radius: 10px;
+    background: rgba(0,18,51,0.4);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mist);
+    transition: all 0.18s;
+    text-align: center;
+    user-select: none;
+  }
+  .rating-btn:hover { border-color: var(--lamp); color: var(--candle); }
+  .rating-btn.selected {
+    border-color: var(--lamp);
+    background: rgba(232,162,26,0.12);
+    color: var(--lamp);
+    box-shadow: 0 0 0 1px rgba(232,162,26,0.3);
+  }
+
+  /* ── Buttons ── */
+  .btn-row { display: flex; gap: 10px; margin-top: 20px; }
+  .btn {
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    flex: 1;
+    letter-spacing: 0.01em;
+  }
+  .btn-back {
+    background: rgba(136,146,164,0.12);
+    color: var(--mist);
+    border: 1.5px solid rgba(136,146,164,0.2);
+  }
+  .btn-back:hover { background: rgba(136,146,164,0.2); color: var(--white); }
+
+  .btn-next {
+    background: linear-gradient(135deg, var(--lamp), var(--ember));
+    color: var(--ocean);
+    box-shadow: 0 4px 16px rgba(232,162,26,0.3);
+  }
+  .btn-next:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(232,162,26,0.45);
+  }
+  .btn-next:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  /* ── Status message ── */
+  .status-msg {
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-top: 12px;
+    display: none;
+    line-height: 1.5;
+  }
+  .status-msg.success {
+    background: rgba(46,107,74,0.2);
+    border: 1px solid rgba(46,107,74,0.4);
+    color: #6fcf97;
+    display: block;
+  }
+  .status-msg.error {
+    background: rgba(200,90,0,0.15);
+    border: 1px solid rgba(200,90,0,0.35);
+    color: #f2994a;
+    display: block;
+  }
+
+  /* ── Success screen ── */
+  .success-screen { text-align: center; padding: 16px 0 8px; }
+  .success-icon { font-size: 56px; margin-bottom: 20px; }
+  .success-screen h2 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .success-screen p { font-size: 14px; color: var(--mist); margin-bottom: 20px; line-height: 1.6; }
+
+  .tag {
+    display: inline-block;
+    background: rgba(232,162,26,0.12);
+    color: var(--lamp);
+    border: 1px solid rgba(232,162,26,0.3);
+    border-radius: 99px;
+    padding: 4px 12px;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    margin: 3px;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-bottom: 8px;
+  }
+  .footer-text {
+    font-family: var(--font-display);
+    font-size: 11px;
+    color: var(--mist);
+    opacity: 0.5;
+    letter-spacing: 0.05em;
+  }
+  .footer-text span { color: var(--lamp); opacity: 1; }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,111,160,0.4), transparent);
+    margin: 4px 0 18px;
+  }
+
+  @media (max-width: 500px) {
+    .card { padding: 24px 18px; }
+    .options-grid { grid-template-columns: 1fr; }
+    .field-row { grid-template-columns: 1fr; }
+    .rating-btn { font-size: 11px; padding: 8px 4px; }
+    .logo-wrap img { height: 52px; }
+  }
 </style>
 </head>
 <body>
 <div class="container">
+
+  <!-- Header -->
   <div class="header">
-    <h1>Khảo Sát Nhu Cầu AI</h1>
-    <p>Giúp chúng tôi hiểu cách bạn sử dụng và mong đợi từ AI</p>
+    <div class="logo-wrap">
+      <img src="dz-core-logo.png" alt="dz logo">
+    </div>
+    <div class="header-title">Khảo Sát <span>Nhu Cầu AI</span></div>
+    <div class="header-sub">Giúp chúng tôi hiểu cách bạn sử dụng và mong đợi từ AI</div>
+    <div class="tagline">Đèn nhỏ tỏ muôn hướng</div>
   </div>
 
-  <div class="progress-text" id="progressText">Bước 1 / 5</div>
-  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span class="progress-label" id="progressLabel">Thông tin cá nhân</span>
+      <span class="progress-step" id="progressText">1 / 5</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:20%"></div>
+    </div>
+  </div>
 
+  <!-- Card -->
   <div class="card">
+
     <!-- Step 1 -->
     <div class="step active" id="step1">
-      <div class="step-title">Thông tin của bạn</div>
-      <div class="step-desc">Giúp chúng tôi hiểu rõ hơn về người dùng</div>
+      <div class="step-header">
+        <div class="step-eyebrow">Bước 1 — Về bạn</div>
+        <div class="step-title">Thông tin của bạn</div>
+        <div class="step-desc">Giúp chúng tôi hiểu rõ hơn về người dùng</div>
+      </div>
       <div class="field-row">
         <div class="field-group">
           <label>Họ và tên *</label>
@@ -93,13 +450,18 @@
           <div class="option" onclick="selectOption('roleGroup',this,'Khác')"><span class="icon">👤</span><span class="option-label">Khác</span></div>
         </div>
       </div>
-      <div class="btn-row"><button class="btn btn-next" onclick="nextStep(1)">Tiếp theo →</button></div>
+      <div class="btn-row">
+        <button class="btn btn-next" onclick="nextStep(1)">Tiếp theo →</button>
+      </div>
     </div>
 
     <!-- Step 2 -->
     <div class="step" id="step2">
-      <div class="step-title">Mức độ sử dụng AI</div>
-      <div class="step-desc">Bạn đang dùng AI như thế nào?</div>
+      <div class="step-header">
+        <div class="step-eyebrow">Bước 2 — Mức độ sử dụng</div>
+        <div class="step-title">Bạn dùng AI như thế nào?</div>
+        <div class="step-desc">Tần suất và các công cụ bạn đang sử dụng</div>
+      </div>
       <div class="field-group">
         <label>Tần suất sử dụng AI</label>
         <div class="options-grid" id="freqGroup">
@@ -109,8 +471,9 @@
           <div class="option" onclick="selectOption('freqGroup',this,'Chưa dùng bao giờ')"><span class="icon">🔰</span><span class="option-label">Chưa dùng bao giờ</span></div>
         </div>
       </div>
+      <div class="divider"></div>
       <div class="field-group">
-        <label>Công cụ AI bạn đang dùng (có thể chọn nhiều)</label>
+        <label>Công cụ AI đang dùng (chọn nhiều)</label>
         <div class="options-grid" id="toolGroup">
           <div class="option multi" onclick="toggleMulti('toolGroup',this,'ChatGPT')"><span class="icon">🤖</span>ChatGPT</div>
           <div class="option multi" onclick="toggleMulti('toolGroup',this,'Claude')"><span class="icon">✨</span>Claude</div>
@@ -118,6 +481,8 @@
           <div class="option multi" onclick="toggleMulti('toolGroup',this,'Copilot')"><span class="icon">🪟</span>Copilot</div>
           <div class="option multi" onclick="toggleMulti('toolGroup',this,'Midjourney / DALL-E')"><span class="icon">🎨</span>Midjourney / DALL-E</div>
           <div class="option multi" onclick="toggleMulti('toolGroup',this,'Chưa dùng')"><span class="icon">❓</span>Chưa dùng</div>
+          <div class="option multi option-other" onclick="toggleOther('toolGroup',this)"><span class="icon">✏️</span>Khác (nhập tên công cụ)</div>
+          <input type="text" id="toolOther" class="option-other-input" placeholder="Nhập tên công cụ AI bạn đang dùng..." oninput="updateOther('toolGroup','toolOther')">
         </div>
       </div>
       <div class="btn-row">
@@ -128,10 +493,13 @@
 
     <!-- Step 3 -->
     <div class="step" id="step3">
-      <div class="step-title">Mục đích & Nhu cầu</div>
-      <div class="step-desc">Bạn dùng AI để làm gì?</div>
+      <div class="step-header">
+        <div class="step-eyebrow">Bước 3 — Mục đích</div>
+        <div class="step-title">Mục đích & Nhu cầu</div>
+        <div class="step-desc">Bạn dùng AI để làm gì và kỳ vọng gì trong tương lai</div>
+      </div>
       <div class="field-group">
-        <label>Mục đích sử dụng AI chính (có thể chọn nhiều)</label>
+        <label>Mục đích sử dụng AI chính (chọn nhiều)</label>
         <div class="options-grid" id="purposeGroup">
           <div class="option multi" onclick="toggleMulti('purposeGroup',this,'Học tập / Nghiên cứu')"><span class="icon">📖</span>Học tập / Nghiên cứu</div>
           <div class="option multi" onclick="toggleMulti('purposeGroup',this,'Viết lách / Nội dung')"><span class="icon">✍️</span>Viết lách / Nội dung</div>
@@ -141,6 +509,7 @@
           <div class="option multi" onclick="toggleMulti('purposeGroup',this,'Hỗ trợ công việc hàng ngày')"><span class="icon">📋</span>Hỗ trợ công việc</div>
         </div>
       </div>
+      <div class="divider"></div>
       <div class="field-group">
         <label>Bạn mong AI hỗ trợ thêm gì trong tương lai?</label>
         <textarea id="expectation" placeholder="Ví dụ: Muốn AI hiểu tiếng Việt tốt hơn, tích hợp vào công việc..."></textarea>
@@ -153,10 +522,13 @@
 
     <!-- Step 4 -->
     <div class="step" id="step4">
-      <div class="step-title">Rào cản & Đánh giá</div>
-      <div class="step-desc">Những khó khăn khi dùng AI</div>
+      <div class="step-header">
+        <div class="step-eyebrow">Bước 4 — Rào cản</div>
+        <div class="step-title">Rào cản & Đánh giá</div>
+        <div class="step-desc">Những khó khăn bạn gặp phải khi dùng AI</div>
+      </div>
       <div class="field-group">
-        <label>Rào cản lớn nhất khi sử dụng AI (có thể chọn nhiều)</label>
+        <label>Rào cản lớn nhất (chọn nhiều)</label>
         <div class="options-grid" id="barrierGroup">
           <div class="option multi" onclick="toggleMulti('barrierGroup',this,'Chi phí cao')"><span class="icon">💰</span>Chi phí cao</div>
           <div class="option multi" onclick="toggleMulti('barrierGroup',this,'Không biết cách dùng')"><span class="icon">🤔</span>Không biết cách dùng</div>
@@ -164,16 +536,19 @@
           <div class="option multi" onclick="toggleMulti('barrierGroup',this,'Kết quả không chính xác')"><span class="icon">⚠️</span>Kết quả không chính xác</div>
           <div class="option multi" onclick="toggleMulti('barrierGroup',this,'Ngôn ngữ tiếng Việt yếu')"><span class="icon">🇻🇳</span>Tiếng Việt yếu</div>
           <div class="option multi" onclick="toggleMulti('barrierGroup',this,'Không có rào cản')"><span class="icon">✅</span>Không có rào cản</div>
+          <div class="option multi option-other" onclick="toggleOther('barrierGroup',this)"><span class="icon">✏️</span>Khác (nhập rào cản)</div>
+          <input type="text" id="barrierOther" class="option-other-input" placeholder="Nhập rào cản bạn gặp phải..." oninput="updateOther('barrierGroup','barrierOther')">
         </div>
       </div>
+      <div class="divider"></div>
       <div class="field-group">
-        <label>Mức độ hài lòng với AI hiện tại (1 = rất không hài lòng, 5 = rất hài lòng)</label>
+        <label>Mức độ hài lòng với AI hiện tại</label>
         <div class="rating-row" id="ratingGroup">
-          <div class="rating-btn" onclick="selectRating(1)">1 😞</div>
-          <div class="rating-btn" onclick="selectRating(2)">2 😕</div>
-          <div class="rating-btn" onclick="selectRating(3)">3 😐</div>
-          <div class="rating-btn" onclick="selectRating(4)">4 😊</div>
-          <div class="rating-btn" onclick="selectRating(5)">5 😍</div>
+          <div class="rating-btn" onclick="selectRating(1)">1<br>😞</div>
+          <div class="rating-btn" onclick="selectRating(2)">2<br>😕</div>
+          <div class="rating-btn" onclick="selectRating(3)">3<br>😐</div>
+          <div class="rating-btn" onclick="selectRating(4)">4<br>😊</div>
+          <div class="rating-btn" onclick="selectRating(5)">5<br>😍</div>
         </div>
       </div>
       <div class="btn-row">
@@ -184,8 +559,11 @@
 
     <!-- Step 5 -->
     <div class="step" id="step5">
-      <div class="step-title">Thông tin liên hệ (tuỳ chọn)</div>
-      <div class="step-desc">Nếu bạn muốn nhận kết quả khảo sát</div>
+      <div class="step-header">
+        <div class="step-eyebrow">Bước 5 — Hoàn tất</div>
+        <div class="step-title">Thông tin liên hệ</div>
+        <div class="step-desc">Tuỳ chọn — nếu bạn muốn nhận kết quả khảo sát</div>
+      </div>
       <div class="field-group">
         <label>Email</label>
         <input type="email" id="email" placeholder="example@gmail.com">
@@ -206,17 +584,24 @@
       <div class="success-screen">
         <div class="success-icon">🎉</div>
         <h2>Cảm ơn bạn đã tham gia!</h2>
-        <p>Phản hồi của bạn rất có giá trị để cải thiện trải nghiệm AI.</p>
+        <p>Phản hồi của bạn rất có giá trị để cải thiện trải nghiệm AI.<br>
+        <em style="color:var(--lamp);font-style:normal;">Đèn nhỏ tỏ muôn hướng.</em></p>
         <div id="summaryTags"></div>
         <br>
-        <button class="btn btn-next" style="max-width:200px;margin:0 auto" onclick="resetSurvey()">Khảo sát lại</button>
+        <button class="btn btn-next" style="max-width:200px;margin:0 auto;display:block" onclick="resetSurvey()">Khảo sát lại</button>
       </div>
     </div>
+
+  </div><!-- /card -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-text"><span>dz</span> · Vô Tận Đăng · dz-ai.vn</div>
   </div>
-</div>
+
+</div><!-- /container -->
 
 <script>
-  // ⚠️ Thay bằng URL GAS Web App của bạn sau khi deploy
   var GAS_URL = 'https://script.google.com/macros/s/AKfycbzDqHzEZTNOp7uYbRFlC2UQTpY1J2Dq-8Po2NBS5_qC5nSpMD3T6D6yvDzSgqOaOLw/exec';
 
   var currentStep = 1;
@@ -224,10 +609,12 @@
   var data = {};
   var rating = 0;
 
+  var STEP_LABELS = ['Thông tin cá nhân', 'Mức độ sử dụng', 'Mục đích & Nhu cầu', 'Rào cản & Đánh giá', 'Hoàn tất'];
+  var FIXED_TOOLS = ['ChatGPT','Claude','Gemini','Copilot','Midjourney / DALL-E','Chưa dùng'];
+  var FIXED_BARRIERS = ['Chi phí cao','Không biết cách dùng','Lo ngại bảo mật','Kết quả không chính xác','Ngôn ngữ tiếng Việt yếu','Không có rào cản'];
+
   function selectOption(groupId, el, val) {
-    document.querySelectorAll('#' + groupId + ' .option').forEach(function(o) {
-      o.classList.remove('selected');
-    });
+    document.querySelectorAll('#' + groupId + ' .option').forEach(function(o) { o.classList.remove('selected'); });
     el.classList.add('selected');
     data[groupId] = val;
   }
@@ -242,6 +629,29 @@
     }
   }
 
+  function toggleOther(groupId, el) {
+    el.classList.toggle('selected');
+    var inputId = groupId === 'toolGroup' ? 'toolOther' : 'barrierOther';
+    var inputEl = document.getElementById(inputId);
+    if (el.classList.contains('selected')) {
+      inputEl.classList.add('show');
+      inputEl.focus();
+    } else {
+      inputEl.classList.remove('show');
+      inputEl.value = '';
+      var fixed = groupId === 'toolGroup' ? FIXED_TOOLS : FIXED_BARRIERS;
+      if (data[groupId]) data[groupId] = data[groupId].filter(function(v) { return fixed.indexOf(v) !== -1; });
+    }
+  }
+
+  function updateOther(groupId, inputId) {
+    var val = document.getElementById(inputId).value.trim();
+    var fixed = groupId === 'toolGroup' ? FIXED_TOOLS : FIXED_BARRIERS;
+    if (!data[groupId]) data[groupId] = [];
+    data[groupId] = data[groupId].filter(function(v) { return fixed.indexOf(v) !== -1; });
+    if (val) data[groupId].push(val);
+  }
+
   function selectRating(n) {
     rating = n;
     document.querySelectorAll('#ratingGroup .rating-btn').forEach(function(b, i) {
@@ -252,30 +662,21 @@
   function updateProgress(step) {
     var pct = (step / totalSteps) * 100;
     document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressText').textContent = 'Bước ' + step + ' / ' + totalSteps;
+    document.getElementById('progressText').textContent = step + ' / ' + totalSteps;
+    document.getElementById('progressLabel').textContent = STEP_LABELS[step - 1] || 'Hoàn thành';
   }
 
   function nextStep(from) {
     if (from === 1) {
       if (!document.getElementById('name').value.trim() || !data['roleGroup']) {
-        alert('Vui lòng điền tên và chọn nhóm của bạn!');
-        return;
+        alert('Vui lòng điền tên và chọn nhóm của bạn!'); return;
       }
       data.name = document.getElementById('name').value.trim();
-      data.age = document.getElementById('age').value;
+      data.age  = document.getElementById('age').value;
     }
-    if (from === 2) {
-      data.frequency = data.freqGroup || '';
-      data.tools = data.toolGroup || [];
-    }
-    if (from === 3) {
-      data.purposes = data.purposeGroup || [];
-      data.expectation = document.getElementById('expectation').value;
-    }
-    if (from === 4) {
-      data.barriers = data.barrierGroup || [];
-      data.rating = rating;
-    }
+    if (from === 2) { data.frequency = data.freqGroup || ''; data.tools = data.toolGroup || []; }
+    if (from === 3) { data.purposes = data.purposeGroup || []; data.expectation = document.getElementById('expectation').value; }
+    if (from === 4) { data.barriers = data.barrierGroup || []; data.rating = rating; }
     document.getElementById('step' + from).classList.remove('active');
     currentStep = from + 1;
     document.getElementById('step' + currentStep).classList.add('active');
@@ -290,12 +691,12 @@
   }
 
   function submitSurvey() {
-    data.email = document.getElementById('email').value;
-    data.feedback = document.getElementById('feedback').value;
+    data.email      = document.getElementById('email').value;
+    data.feedback   = document.getElementById('feedback').value;
     data.submittedAt = new Date().toLocaleString('vi-VN');
 
     var btn = document.getElementById('submitBtn');
-    var st = document.getElementById('submitStatus');
+    var st  = document.getElementById('submitStatus');
     btn.disabled = true;
     btn.textContent = 'Đang gửi...';
     st.className = 'status-msg';
@@ -307,10 +708,7 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     })
-    .then(function() {
-      // no-cors trả về opaque response, coi như thành công
-      showSuccess();
-    })
+    .then(function() { showSuccess(); })
     .catch(function(err) {
       st.className = 'status-msg error';
       st.textContent = '⚠ Lỗi kết nối: ' + err.message;
@@ -323,16 +721,15 @@
     document.getElementById('step5').classList.remove('active');
     document.getElementById('stepDone').classList.add('active');
     document.getElementById('progressFill').style.width = '100%';
-    document.getElementById('progressText').textContent = 'Hoàn thành!';
+    document.getElementById('progressText').textContent = '✓';
+    document.getElementById('progressLabel').textContent = 'Hoàn thành!';
     var tags = [data.roleGroup, data.frequency].concat(data.tools || []).filter(Boolean);
     document.getElementById('summaryTags').innerHTML = tags.map(function(t) {
       return '<span class="tag">' + t + '</span>';
     }).join('');
   }
 
-  function resetSurvey() {
-    location.reload();
-  }
+  function resetSurvey() { location.reload(); }
 </script>
 </body>
 </html>
