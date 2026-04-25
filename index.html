@@ -422,22 +422,16 @@
         <div class="step-title">Thông tin của bạn</div>
         <div class="step-desc">Giúp chúng tôi hiểu rõ hơn về người dùng</div>
       </div>
-      <div class="field-row">
-        <div class="field-group">
-          <label>Họ và tên *</label>
-          <input type="text" id="name" placeholder="Nguyễn Văn A">
-        </div>
-        <div class="field-group">
-          <label>Độ tuổi</label>
-          <select id="age">
-            <option value="">Chọn độ tuổi</option>
-            <option>Dưới 18</option>
-            <option>18 – 24</option>
-            <option>25 – 34</option>
-            <option>35 – 44</option>
-            <option>45+</option>
-          </select>
-        </div>
+      <div class="field-group">
+        <label>Độ tuổi</label>
+        <select id="age">
+          <option value="">Chọn độ tuổi</option>
+          <option>Dưới 18</option>
+          <option>18 – 24</option>
+          <option>25 – 34</option>
+          <option>35 – 44</option>
+          <option>45+</option>
+        </select>
       </div>
       <div class="field-group">
         <label>Bạn thuộc nhóm nào? *</label>
@@ -668,11 +662,10 @@
 
   function nextStep(from) {
     if (from === 1) {
-      if (!document.getElementById('name').value.trim() || !data['roleGroup']) {
-        alert('Vui lòng điền tên và chọn nhóm của bạn!'); return;
+      if (!data['roleGroup']) {
+        alert('Vui lòng chọn nhóm của bạn!'); return;
       }
-      data.name = document.getElementById('name').value.trim();
-      data.age  = document.getElementById('age').value;
+      data.age = document.getElementById('age').value;
     }
     if (from === 2) { data.frequency = data.freqGroup || ''; data.tools = data.toolGroup || []; }
     if (from === 3) { data.purposes = data.purposeGroup || []; data.expectation = document.getElementById('expectation').value; }
