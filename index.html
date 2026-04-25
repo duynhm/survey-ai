@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+  /* ── Brand tokens (immutable) ── */
   :root {
     --ocean:   #001233;
     --ocean2:  #001E4D;
@@ -23,58 +24,146 @@
     --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
   }
 
+  /* ── Dark theme (default) ── */
+  [data-theme="dark"] {
+    --bg-page:        var(--ocean);
+    --bg-card:        var(--ocean2);
+    --bg-input:       rgba(0,18,51,0.6);
+    --bg-option:      rgba(0,18,51,0.4);
+    --bg-option-hover:rgba(232,162,26,0.08);
+    --bg-option-sel:  rgba(232,162,26,0.12);
+    --bg-other-input: rgba(232,162,26,0.06);
+    --bg-btn-back:    rgba(136,146,164,0.12);
+    --border-card:    rgba(0,111,160,0.3);
+    --border-input:   rgba(0,111,160,0.4);
+    --border-option:  rgba(0,111,160,0.35);
+    --border-back:    rgba(136,146,164,0.2);
+    --border-divider: rgba(0,111,160,0.4);
+    --border-step:    rgba(0,111,160,0.25);
+    --text-heading:   var(--white);
+    --text-body:      var(--mist);
+    --text-input:     var(--white);
+    --text-option:    var(--mist);
+    --text-option-hover: var(--candle);
+    --text-btn-back:  var(--mist);
+    --text-btn-back-hover: var(--white);
+    --card-shadow:    0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.04);
+    --progress-track: rgba(255,255,255,0.08);
+    --circuit-color:  var(--flow);
+    --select-bg:      var(--ocean);
+    --logo-src:       url('dz-core-logo.png');
+  }
+
+  /* ── Light theme ── */
+  [data-theme="light"] {
+    --bg-page:        var(--candle);
+    --bg-card:        var(--white);
+    --bg-input:       #f5f3ee;
+    --bg-option:      #f5f3ee;
+    --bg-option-hover:rgba(232,162,26,0.08);
+    --bg-option-sel:  rgba(232,162,26,0.1);
+    --bg-other-input: rgba(232,162,26,0.06);
+    --bg-btn-back:    rgba(0,18,51,0.06);
+    --border-card:    rgba(0,111,160,0.15);
+    --border-input:   rgba(0,18,51,0.15);
+    --border-option:  rgba(0,18,51,0.12);
+    --border-back:    rgba(0,18,51,0.12);
+    --border-divider: rgba(0,18,51,0.1);
+    --border-step:    rgba(0,18,51,0.1);
+    --text-heading:   var(--ocean);
+    --text-body:      #4a5568;
+    --text-input:     var(--ocean);
+    --text-option:    #4a5568;
+    --text-option-hover: var(--ocean);
+    --text-btn-back:  #4a5568;
+    --text-btn-back-hover: var(--ocean);
+    --card-shadow:    0 8px 40px rgba(0,18,51,0.08), 0 0 0 1px rgba(0,18,51,0.06);
+    --progress-track: rgba(0,18,51,0.08);
+    --circuit-color:  var(--ocean);
+    --select-bg:      var(--candle);
+    --logo-src:       url('dz-core-logo.png');
+  }
+
+  /* ── Base ── */
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
     font-family: var(--font-body);
-    background: var(--ocean);
+    background: var(--bg-page);
     min-height: 100vh;
     padding: 24px 16px 40px;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
-  /* ── Background subtle circuit texture ── */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(var(--flow) 1px, transparent 1px),
-      linear-gradient(90deg, var(--flow) 1px, transparent 1px);
+      linear-gradient(var(--circuit-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--circuit-color) 1px, transparent 1px);
     background-size: 48px 48px;
-    opacity: 0.05;
+    opacity: 0.04;
     pointer-events: none;
     z-index: 0;
+    transition: opacity 0.3s;
   }
+  [data-theme="light"] body::before { opacity: 0.03; }
 
   .container { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+
+  /* ── Theme toggle button ── */
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-input);
+    background: var(--bg-card);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .theme-toggle:hover {
+    border-color: var(--lamp);
+    box-shadow: 0 0 0 3px rgba(232,162,26,0.15);
+    transform: scale(1.08);
+  }
 
   /* ── Header ── */
   .header { text-align: center; padding: 8px 0 24px; }
 
-  .logo-wrap {
-    display: inline-block;
-    margin-bottom: 20px;
-  }
-  .logo-wrap img {
-    height: 64px;
-    width: auto;
-    display: block;
+  .logo-wrap { display: inline-block; margin-bottom: 20px; }
+  .logo-wrap img { height: 64px; width: auto; display: block; }
+
+  /* Light mode: logo on dark bg needs a rounded container */
+  [data-theme="light"] .logo-wrap img {
+    border-radius: 12px;
   }
 
   .header-title {
     font-family: var(--font-display);
     font-size: 22px;
     font-weight: 700;
-    color: var(--white);
+    color: var(--text-heading);
     letter-spacing: -0.01em;
     margin-bottom: 6px;
+    transition: color 0.3s;
   }
   .header-title span { color: var(--lamp); }
 
   .header-sub {
     font-size: 13px;
-    color: var(--mist);
+    color: var(--text-body);
     line-height: 1.6;
+    transition: color 0.3s;
   }
 
   .tagline {
@@ -91,19 +180,15 @@
 
   /* ── Progress ── */
   .progress-wrap { margin-bottom: 20px; }
-  .progress-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-  }
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .progress-label {
     font-family: var(--font-display);
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--mist);
+    color: var(--text-body);
+    transition: color 0.3s;
   }
   .progress-step {
     font-family: var(--font-display);
@@ -112,33 +197,40 @@
     color: var(--lamp);
   }
   .progress-bar {
-    background: rgba(255,255,255,0.08);
+    background: var(--progress-track);
     border-radius: 99px;
     height: 4px;
     overflow: hidden;
+    transition: background 0.3s;
   }
   .progress-fill {
     background: linear-gradient(90deg, var(--lamp), var(--ember));
     border-radius: 99px;
     height: 4px;
     transition: width 0.4s ease;
-    box-shadow: 0 0 8px rgba(232,162,26,0.5);
+    box-shadow: 0 0 8px rgba(232,162,26,0.4);
   }
 
   /* ── Card ── */
   .card {
-    background: var(--ocean2);
-    border: 1px solid rgba(0,111,160,0.3);
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
     border-radius: 20px;
     padding: 32px 28px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,255,0.04);
+    box-shadow: var(--card-shadow);
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
   }
 
   .step { display: none; }
   .step.active { display: block; }
 
   /* ── Step header ── */
-  .step-header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid rgba(0,111,160,0.25); }
+  .step-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-step);
+    transition: border-color 0.3s;
+  }
   .step-eyebrow {
     font-family: var(--font-display);
     font-size: 10px;
@@ -152,15 +244,15 @@
     font-family: var(--font-display);
     font-size: 20px;
     font-weight: 700;
-    color: var(--white);
+    color: var(--text-heading);
     letter-spacing: -0.01em;
     margin-bottom: 4px;
+    transition: color 0.3s;
   }
-  .step-desc { font-size: 13px; color: var(--mist); line-height: 1.6; }
+  .step-desc { font-size: 13px; color: var(--text-body); line-height: 1.6; transition: color 0.3s; }
 
   /* ── Form elements ── */
   .field-group { margin-bottom: 18px; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
 
   label {
     display: block;
@@ -169,39 +261,40 @@
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--mist);
+    color: var(--text-body);
     margin-bottom: 8px;
+    transition: color 0.3s;
   }
 
   input[type=text], input[type=email], select, textarea {
     width: 100%;
     padding: 10px 14px;
-    border: 1.5px solid rgba(0,111,160,0.4);
+    border: 1.5px solid var(--border-input);
     border-radius: 10px;
     font-family: var(--font-body);
     font-size: 14px;
-    color: var(--white);
-    background: rgba(0,18,51,0.6);
+    color: var(--text-input);
+    background: var(--bg-input);
     outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.3s, color 0.3s;
     -webkit-appearance: none;
   }
   input[type=text]::placeholder, input[type=email]::placeholder, textarea::placeholder {
     color: var(--mist);
-    opacity: 0.6;
+    opacity: 0.7;
   }
   input:focus, select:focus, textarea:focus {
     border-color: var(--lamp);
     box-shadow: 0 0 0 3px rgba(232,162,26,0.15);
   }
-  select option { background: var(--ocean); color: var(--white); }
+  select option { background: var(--select-bg); color: var(--text-input); }
   textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
 
   /* ── Options grid ── */
   .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; }
 
   .option {
-    border: 1.5px solid rgba(0,111,160,0.35);
+    border: 1.5px solid var(--border-option);
     border-radius: 12px;
     padding: 11px 13px;
     cursor: pointer;
@@ -212,26 +305,25 @@
     font-family: var(--font-body);
     font-size: 13px;
     font-weight: 500;
-    color: var(--mist);
-    background: rgba(0,18,51,0.4);
+    color: var(--text-option);
+    background: var(--bg-option);
     user-select: none;
   }
   .option:hover {
     border-color: var(--lamp);
-    background: rgba(232,162,26,0.08);
-    color: var(--candle);
+    background: var(--bg-option-hover);
+    color: var(--text-option-hover);
   }
   .option.selected {
     border-color: var(--lamp);
-    background: rgba(232,162,26,0.12);
+    background: var(--bg-option-sel);
     color: var(--lamp);
     font-weight: 600;
-    box-shadow: 0 0 0 1px rgba(232,162,26,0.3), inset 0 0 12px rgba(232,162,26,0.06);
+    box-shadow: 0 0 0 1px rgba(232,162,26,0.25);
   }
   .option .icon { font-size: 18px; flex-shrink: 0; }
   .option-label { line-height: 1.35; }
 
-  /* "Khác" option spans full width */
   .option-other { grid-column: 1 / -1; }
   .option-other-input {
     display: none;
@@ -242,10 +334,10 @@
     border-radius: 8px;
     font-family: var(--font-body);
     font-size: 13px;
-    color: var(--white);
-    background: rgba(232,162,26,0.06);
+    color: var(--text-input);
+    background: var(--bg-other-input);
     outline: none;
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s, background 0.3s, color 0.3s;
   }
   .option-other-input::placeholder { color: var(--mist); opacity: 0.7; }
   .option-other-input:focus { box-shadow: 0 0 0 3px rgba(232,162,26,0.2); }
@@ -256,24 +348,24 @@
   .rating-btn {
     flex: 1;
     padding: 10px 6px;
-    border: 1.5px solid rgba(0,111,160,0.35);
+    border: 1.5px solid var(--border-option);
     border-radius: 10px;
-    background: rgba(0,18,51,0.4);
+    background: var(--bg-option);
     cursor: pointer;
     font-family: var(--font-body);
     font-size: 12px;
     font-weight: 600;
-    color: var(--mist);
+    color: var(--text-option);
     transition: all 0.18s;
     text-align: center;
     user-select: none;
   }
-  .rating-btn:hover { border-color: var(--lamp); color: var(--candle); }
+  .rating-btn:hover { border-color: var(--lamp); color: var(--text-option-hover); }
   .rating-btn.selected {
     border-color: var(--lamp);
-    background: rgba(232,162,26,0.12);
+    background: var(--bg-option-sel);
     color: var(--lamp);
-    box-shadow: 0 0 0 1px rgba(232,162,26,0.3);
+    box-shadow: 0 0 0 1px rgba(232,162,26,0.25);
   }
 
   /* ── Buttons ── */
@@ -291,21 +383,18 @@
     letter-spacing: 0.01em;
   }
   .btn-back {
-    background: rgba(136,146,164,0.12);
-    color: var(--mist);
-    border: 1.5px solid rgba(136,146,164,0.2);
+    background: var(--bg-btn-back);
+    color: var(--text-btn-back);
+    border: 1.5px solid var(--border-back);
   }
-  .btn-back:hover { background: rgba(136,146,164,0.2); color: var(--white); }
+  .btn-back:hover { background: rgba(136,146,164,0.2); color: var(--text-btn-back-hover); }
 
   .btn-next {
     background: linear-gradient(135deg, var(--lamp), var(--ember));
     color: var(--ocean);
     box-shadow: 0 4px 16px rgba(232,162,26,0.3);
   }
-  .btn-next:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 22px rgba(232,162,26,0.45);
-  }
+  .btn-next:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(232,162,26,0.45); }
   .btn-next:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
 
   /* ── Status message ── */
@@ -317,18 +406,9 @@
     display: none;
     line-height: 1.5;
   }
-  .status-msg.success {
-    background: rgba(46,107,74,0.2);
-    border: 1px solid rgba(46,107,74,0.4);
-    color: #6fcf97;
-    display: block;
-  }
-  .status-msg.error {
-    background: rgba(200,90,0,0.15);
-    border: 1px solid rgba(200,90,0,0.35);
-    color: #f2994a;
-    display: block;
-  }
+  .status-msg.success { background: rgba(46,107,74,0.15); border: 1px solid rgba(46,107,74,0.35); color: #2e6b4a; display: block; }
+  [data-theme="dark"] .status-msg.success { color: #6fcf97; }
+  .status-msg.error { background: rgba(200,90,0,0.12); border: 1px solid rgba(200,90,0,0.3); color: var(--ember); display: block; }
 
   /* ── Success screen ── */
   .success-screen { text-align: center; padding: 16px 0 8px; }
@@ -337,15 +417,16 @@
     font-family: var(--font-display);
     font-size: 22px;
     font-weight: 700;
-    color: var(--white);
+    color: var(--text-heading);
     letter-spacing: -0.01em;
     margin-bottom: 10px;
+    transition: color 0.3s;
   }
-  .success-screen p { font-size: 14px; color: var(--mist); margin-bottom: 20px; line-height: 1.6; }
+  .success-screen p { font-size: 14px; color: var(--text-body); margin-bottom: 20px; line-height: 1.6; transition: color 0.3s; }
 
   .tag {
     display: inline-block;
-    background: rgba(232,162,26,0.12);
+    background: rgba(232,162,26,0.1);
     color: var(--lamp);
     border: 1px solid rgba(232,162,26,0.3);
     border-radius: 99px;
@@ -357,38 +438,40 @@
     letter-spacing: 0.03em;
   }
 
-  /* ── Footer ── */
-  .footer {
-    text-align: center;
-    margin-top: 24px;
-    padding-bottom: 8px;
-  }
-  .footer-text {
-    font-family: var(--font-display);
-    font-size: 11px;
-    color: var(--mist);
-    opacity: 0.5;
-    letter-spacing: 0.05em;
-  }
-  .footer-text span { color: var(--lamp); opacity: 1; }
-
   /* ── Divider ── */
   .divider {
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0,111,160,0.4), transparent);
+    background: linear-gradient(90deg, transparent, var(--border-divider), transparent);
     margin: 4px 0 18px;
+    transition: background 0.3s;
   }
+
+  /* ── Footer ── */
+  .footer { text-align: center; margin-top: 24px; padding-bottom: 8px; }
+  .footer-text {
+    font-family: var(--font-display);
+    font-size: 11px;
+    color: var(--text-body);
+    opacity: 0.5;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+  .footer-text span { color: var(--lamp); opacity: 1; }
 
   @media (max-width: 500px) {
     .card { padding: 24px 18px; }
     .options-grid { grid-template-columns: 1fr; }
-    .field-row { grid-template-columns: 1fr; }
     .rating-btn { font-size: 11px; padding: 8px 4px; }
     .logo-wrap img { height: 52px; }
+    .theme-toggle { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 16px; }
   }
 </style>
 </head>
 <body>
+
+<!-- Theme toggle -->
+<button class="theme-toggle" id="themeToggle" title="Chuyển đổi giao diện" onclick="toggleTheme()">🌙</button>
+
 <div class="container">
 
   <!-- Header -->
@@ -420,7 +503,7 @@
       <div class="step-header">
         <div class="step-eyebrow">Bước 1 — Về bạn</div>
         <div class="step-title">Thông tin của bạn</div>
-        <div class="step-desc">Giúp chúng tôi hiểu rõ hơn về người dùng</div>
+        <div class="step-desc">Khảo sát hoàn toàn ẩn danh — không thu thập thông tin định danh</div>
       </div>
       <div class="field-group">
         <label>Độ tuổi</label>
@@ -598,6 +681,38 @@
 <script>
   var GAS_URL = 'https://script.google.com/macros/s/AKfycbzDqHzEZTNOp7uYbRFlC2UQTpY1J2Dq-8Po2NBS5_qC5nSpMD3T6D6yvDzSgqOaOLw/exec';
 
+  /* ── Theme ── */
+  var ICONS = { dark: '🌙', light: '☀️' };
+
+  function getSystemTheme() {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.getElementById('themeToggle').textContent = ICONS[theme === 'dark' ? 'light' : 'dark'];
+    localStorage.setItem('dz-theme', theme);
+  }
+
+  function toggleTheme() {
+    var current = document.documentElement.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
+  /* Init theme: localStorage → system preference */
+  (function() {
+    var saved = localStorage.getItem('dz-theme');
+    applyTheme(saved || getSystemTheme());
+  })();
+
+  /* Listen for system theme changes (when no manual override) */
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    if (!localStorage.getItem('dz-theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+  /* ── Survey logic ── */
   var currentStep = 1;
   var totalSteps = 5;
   var data = {};
@@ -662,9 +777,7 @@
 
   function nextStep(from) {
     if (from === 1) {
-      if (!data['roleGroup']) {
-        alert('Vui lòng chọn nhóm của bạn!'); return;
-      }
+      if (!data['roleGroup']) { alert('Vui lòng chọn nhóm của bạn!'); return; }
       data.age = document.getElementById('age').value;
     }
     if (from === 2) { data.frequency = data.freqGroup || ''; data.tools = data.toolGroup || []; }
@@ -684,8 +797,8 @@
   }
 
   function submitSurvey() {
-    data.email      = document.getElementById('email').value;
-    data.feedback   = document.getElementById('feedback').value;
+    data.email       = document.getElementById('email').value;
+    data.feedback    = document.getElementById('feedback').value;
     data.submittedAt = new Date().toLocaleString('vi-VN');
 
     var btn = document.getElementById('submitBtn');
